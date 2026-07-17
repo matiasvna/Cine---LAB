@@ -22,29 +22,34 @@ public class FiltroPeticiones implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         
-        // EXCEPCIÓN DE SEGURIDAD: Dejar pasar libremente los archivos de diseño (CSS, JS, Imágenes)
+        // EXCEPCIÓN 1: Dejar pasar libremente los archivos de diseño (CSS, JS, Imágenes)
         String uri = req.getRequestURI();
         if (uri.startsWith("/css/") || uri.startsWith("/js/") || uri.startsWith("/img/")) {
             chain.doFilter(request, response);
-            return; // no evaluar lmt tiempo
+            return; 
         }
 
-        String ipCliente = req.getRemoteAddr();
-        long tiempoActual = System.currentTimeMillis();
+        // EXCEPCIÓN 2: Solo aplicamos el límite de tiempo a los envíos de formularios (POST)
+        // Esto permite que las redirecciones automáticas (GET) funcionen sin chocar con el límite.
+        if (req.getMethod().equalsIgnoreCase("POST")) {
+            String ipCliente = req.getRemoteAddr();
+            long tiempoActual = System.currentTimeMillis();
 
-        // limite: si hizo otra peticion en menos de 500 milisegundos
-        if (registroPeticiones.containsKey(ipCliente)) {
-            long ultimaPeticion = registroPeticiones.get(ipCliente);
-            
-            if (tiempoActual - ultimaPeticion < 500) {
-                res.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
-                res.setContentType("text/plain;charset=UTF-8");
-                res.getWriter().write("Error 429: Demasiadas peticiones. Por favor, espera un momento.");
-                return; 
+            // Límite: si intentó enviar otro formulario en menos de 500 milisegundos
+            if (registroPeticiones.containsKey(ipCliente)) {
+                long ultimaPeticion = registroPeticiones.get(ipCliente);
+                
+                if (tiempoActual - ultimaPeticion < 500) {
+                    res.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
+                    res.setContentType("text/plain;charset=UTF-8");
+                    res.getWriter().write("Error 429: Demasiadas peticiones. Por favor, espera un momento.");
+                    return; 
+                }
             }
+            registroPeticiones.put(ipCliente, tiempoActual);
         }
 
-        registroPeticiones.put(ipCliente, tiempoActual);
+        // Si todo está bien, dejamos que la petición continúe su camino
         chain.doFilter(request, response);
     }
 }

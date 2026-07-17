@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DirectorRepositorio extends JpaRepository<Director, Long> {
+    boolean existsByNombreIgnoreCase(String nombre);
 }

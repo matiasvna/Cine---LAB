@@ -199,3 +199,84 @@ body {
 .footer-link:hover {
     color: #e50914; /* Cambia al rojo corporativo de Cinemax en hover */
 }
+
+/* ==========================================================================
+   AJUSTES DE ALINEACIÓN PERFECTA PARA BOTONES
+   ========================================================================== */
+.btn-primary-modern, .btn-secondary-modern {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px; /* Forzamos la altura milimétrica para ambos */
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.dropdown-toggle::after {
+    vertical-align: middle;
+    margin-left: 0.6em;
+}
+
+/* ==========================================================================
+   ANIMACIÓN Y ESTILOS DEL MENÚ DESPLEGABLE (DROPDOWN)
+   ========================================================================== */
+.custom-dropdown-menu {
+    background-color: #141416;
+    border: 1px solid #232326;
+    border-radius: 10px;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem !important;
+    transform-origin: top center;
+}
+
+/* LA SOLUCIÓN: La animación solo se dispara cuando Bootstrap agrega la clase .show al hacer clic */
+.custom-dropdown-menu.show {
+    animation: dropFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes dropFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.96);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.custom-dropdown-menu .dropdown-item {
+    color: #a1a1aa;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.5rem;
+    transition: all 0.2s ease;
+}
+
+.custom-dropdown-menu .dropdown-item:hover,
+.custom-dropdown-menu .dropdown-item:focus {
+    background-color: #232326;
+    color: #fafafa;
+    transform: translateX(3px);
+}
+
+/* ==========================================================================
+   EFECTO TÁCTIL (HUNDIMIENTO) PARA TODOS LOS BOTONES
+   ========================================================================== */
+.btn-primary-modern:active, 
+.btn-secondary-modern:active,
+.btn-logout-modern:active {
+    transform: scale(0.95) !important; /* Achica el botón un 5% al hacer clic */
+    transition: transform 0.1s ease !important; /* Lo hace súper rápido y fluido */
+}
+
+/* ==========================================================================
+   ESTADO ACTIVO DEL BOTÓN DESPLEGABLE (CUANDO EL MENÚ ESTÁ ABIERTO)
+   ========================================================================== */
+.btn-secondary-modern.show {
+    background-color: #18181b !important;
+    border-color: #52525b !important;
+    color: #ffffff !important;
+    /* Un pequeño resplandor para indicar que está presionado */
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.4); 
+}

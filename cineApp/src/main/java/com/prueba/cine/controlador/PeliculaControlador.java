@@ -52,7 +52,8 @@ public class PeliculaControlador {
         return "aggPelicula";
     }
 
-    @PostMapping
+    // AQUI ESTA LA CORRECCION: Le agregamos "/guardar" para que atrape el formulario
+    @PostMapping("/guardar")
     public String savePelicula(@ModelAttribute("pelicula") Pelicula pelicula) {
         peliculaServ.save(pelicula);
         return "redirect:/peliculas";

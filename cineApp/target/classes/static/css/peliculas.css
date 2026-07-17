@@ -1,0 +1,134 @@
+/* =========================================
+   ESTILOS GENERALES Y CONTENEDOR
+   ========================================= */
+body {
+    background-color: #09090b; /* Fondo oscuro principal */
+    color: #fafafa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 2rem;
+}
+
+.catalog-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #18181b; /* Fondo de la tarjeta */
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid #27272a;
+}
+
+.brand-title {
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.brand-title span {
+    color: #dc2626; /* Rojo Cinemax */
+}
+
+.header-actions {
+    margin-bottom: 1.5rem;
+}
+
+/* =========================================
+   ESTILOS DE LA TABLA
+   ========================================= */
+.table-custom {
+    color: #a1a1aa;
+    margin-top: 1rem;
+    --bs-table-bg: transparent; /* Evita que Bootstrap pise el fondo */
+}
+
+.table-custom thead th {
+    background-color: #27272a;
+    color: #fafafa;
+    border-bottom: 2px solid #dc2626;
+    padding: 1rem;
+    font-weight: 600;
+}
+
+.table-custom tbody tr {
+    border-bottom: 1px solid #27272a;
+    transition: background-color 0.2s ease;
+}
+
+.table-custom tbody tr:hover {
+    background-color: #27272a;
+}
+
+.table-custom tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    color: #a1a1aa;
+}
+
+/* =========================================
+   ESTILOS DE LOS BOTONES
+   ========================================= */
+/* Botón Agregar Película (Destacado) */
+.btn-add {
+    background-color: #dc2626;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.2s;
+    border: 1px solid #dc2626;
+}
+
+.btn-add:hover {
+    background-color: #b91c1c;
+    border-color: #b91c1c;
+    color: #ffffff;
+}
+
+/* Botón Volver */
+.btn-back {
+    background-color: #27272a;
+    color: #fafafa;
+    text-decoration: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1px solid #3f3f46;
+}
+
+.btn-back:hover {
+    background-color: #3f3f46;
+    color: #ffffff;
+}
+
+/* Botón Editar */
+.btn-edit {
+    background-color: transparent;
+    border: 1px solid #3b82f6; /* Azul */
+    color: #3b82f6;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-right: 0.5rem;
+}
+
+.btn-edit:hover {
+    background-color: #3b82f6;
+    color: #ffffff;
+}
+
+/* Botón Eliminar */
+.btn-delete {
+    color: #ef4444; /* Rojo claro */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    padding: 0.4rem;
+}
+
+.btn-delete:hover {
+    color: #b91c1c;
+    text-decoration: underline;
+}
