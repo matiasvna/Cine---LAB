@@ -22,15 +22,15 @@ public class FiltroPeticiones implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         
-        // EXCEPCIÓN 1: Dejar pasar libremente los archivos de diseño (CSS, JS, Imágenes)
+        // EXCEPCIÓN 1: Dejar pasar libremente los archivos de diseño
         String uri = req.getRequestURI();
         if (uri.startsWith("/css/") || uri.startsWith("/js/") || uri.startsWith("/img/")) {
             chain.doFilter(request, response);
             return; 
         }
 
-        // EXCEPCIÓN 2: Solo aplicamos el límite de tiempo a los envíos de formularios (POST)
-        // Esto permite que las redirecciones automáticas (GET) funcionen sin chocar con el límite.
+        // EXCEPCIÓN 2: Limite de tiempo a los eenvios de formularios
+        // Permite que las redirecciones automaticas (GET) funcionen
         if (req.getMethod().equalsIgnoreCase("POST")) {
             String ipCliente = req.getRemoteAddr();
             long tiempoActual = System.currentTimeMillis();
@@ -49,7 +49,7 @@ public class FiltroPeticiones implements Filter {
             registroPeticiones.put(ipCliente, tiempoActual);
         }
 
-        // Si todo está bien, dejamos que la petición continúe su camino
+        // Si todo está bien, dejamos que la peticion siga
         chain.doFilter(request, response);
     }
 }

@@ -28,7 +28,7 @@ public class TestApplication {
             PasswordEncoder passwordEncoder) {
         
         return args -> {
-            // 1. Crear Usuario Administrador inicial
+            // 1. user 1 (admin)
             if (usuarioRep.findByUsername("admin").isEmpty()) {
                 Usuario admin = new Usuario();
                 admin.setUsername("admin");
@@ -37,7 +37,16 @@ public class TestApplication {
                 System.out.println(">>> Usuario 'admin' creado con éxito.");
             }
 
-            // 2. Autocompletar Géneros (Solo si la tabla está vacía)
+            // 1.1 usuario prof
+            if (usuarioRep.findByUsername("profesor").isEmpty()) {
+                Usuario profesor = new Usuario();
+                profesor.setUsername("profesor");
+                profesor.setPassword(passwordEncoder.encode("unpa2026")); 
+                usuarioRep.save(profesor);
+                System.out.println(">>> Usuario 'profesor' creado con éxito.");
+            }
+
+            // 2. Autocompletar generos (Solo si la tabla está vacia)
             if (generoRep.count() == 0) {
                 Genero g1 = new Genero(); g1.setTitulo("Acción");
                 Genero g2 = new Genero(); g2.setTitulo("Comedia");
@@ -52,7 +61,7 @@ public class TestApplication {
                 System.out.println(">>> Géneros por defecto insertados.");
             }
 
-            // 3. Autocompletar Directores (Solo si la tabla está vacía)
+            // 3. Autocompletar directores (vacia)
             if (directorRep.count() == 0) {
                 Director d1 = new Director(); d1.setNombre("Christopher Nolan");
                 Director d2 = new Director(); d2.setNombre("Steven Spielberg");
@@ -64,5 +73,6 @@ public class TestApplication {
                 System.out.println(">>> Directores por defecto insertados.");
             }
         };
+        
     }
 }
